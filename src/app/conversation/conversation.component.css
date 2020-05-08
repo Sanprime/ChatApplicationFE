@@ -1,0 +1,20 @@
+table {
+  width: 80%;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.conversation {
+  padding-left: 200px;
+}
+
+.intro {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-bottom: 50px;
+}
+
+.outgoing-message {
+  display: flex;
+  padding: 21px 0;
+  justify-content: flex-end;
+}

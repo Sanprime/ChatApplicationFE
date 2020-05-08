@@ -1,0 +1,25 @@
+<div class = "intro">
+  <h1>Hey there, you can begin chatting soon!</h1>
+  <p>In the mean time, <strong>FUCK OFF!</strong></p>
+</div>
+
+<div class = "conversation">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="incoming">
+      <th mat-header-cell *matHeaderCellDef> Joe </th>
+      <td mat-cell *matCellDef="let message"> {{message.incoming}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="outgoing">
+      <th mat-header-cell *matHeaderCellDef class="outgoing-message"> SJ </th>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let message" class="outgoing-message"> {{message.outgoing}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>
+
