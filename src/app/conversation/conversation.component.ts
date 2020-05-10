@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../model/message';
+import { DisplayMessage } from '../model/display-message';
+import { DIR_DOCUMENT_FACTORY } from '@angular/cdk/bidi/dir-document-token';
+import { MatTableDataSource } from '@angular/material/table';
+import { ArrayType } from '@angular/compiler';
 
 
 const mockMessages: Message[] = [
@@ -10,6 +14,8 @@ const mockMessages: Message[] = [
   {toUserId: '001', message: 'Boo', position: 4, timeStamp: ''}
 ];
 
+const mockLoggedInUser = '001';
+
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
@@ -17,13 +23,34 @@ const mockMessages: Message[] = [
 })
 export class ConversationComponent implements OnInit {
 
-  dataSource: any;
+  dataSource: MatTableDataSource<DisplayMessage>;
   displayedColumns: string[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.displayedColumns = ['incoming', 'outgoing'];
-    this.dataSource = [{incoming: 'hey', outgoing: ''}, {incoming: '', outgoing: 'yo'}, {incoming: 'Nufing', outgoing: ''},  {incoming: '', outgoing: 'bish'}];
+    this.dataSource = new MatTableDataSource(this.mapMessageToDisplayMessage(mockLoggedInUser, mockMessages));
+    console.log(this.dataSource);
+  }
+
+  mapMessageToDisplayMessage(userId: string, messages: Message[]): DisplayMessage[] {
+    const displayMessages: DisplayMessage[] = new Array();
+    for (const message of messages) {
+      const displayMessage: DisplayMessage = new DisplayMessage();
+      if (message.toUserId === userId) {
+        displayMessage.incomingMessage = message.message;
+        displayMessage.outgoingMessage = '';
+        displayMessages.push(displayMessage);
+      }
+      else {
+        displayMessage.outgoingMessage = message.message;
+        displayMessage.incomingMessage = '';
+        displayMessages.push(displayMessage);
+      }
+    }
+    console.log(displayMessages);
+    return displayMessages;
   }
 }
